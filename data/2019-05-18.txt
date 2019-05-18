@@ -1,0 +1,78 @@
+1
+0
+0
+0
+1
+0
+0
+0
+1
+0
+0
+0
+0
+0
+CameraMatrix: [1, 0, 0;
+ 0, 1, 0;
+ 0, 0, 1]
+DisCoeff_: [0, 0, 0, 0, 0]
+[DEBUG] [1, 0, 0;
+ 0, 1, 0;
+ 0, 0, 1]
+[DEBUG] [0, 0, 10]
+[DEBUG] Rv: [0;
+ 0;
+ 0] @process | CalculatePoint
+[DEBUG] R: [1, 0, 0;
+ 0, 1, 0;
+ 0, 0, 1] @process | CalculatePoint
+[DEBUG] vectorA_: [1;
+ 2;
+ 1] @process | CalculatePoint
+[DEBUG] matSrc: [0;
+ 0;
+ 1] @convertToWorldCoordinate
+[DEBUG] t: [0;
+ -6.277438562204192e+66;
+ -6.277438562204192e+66] @convertToWorldCoordinate
+[DEBUG] k_0:  10.0, k_1: 1.0, 10.0 @process | CalculatePoint
+[DEBUG] A:  [10;
+ 20;
+ 10] @process | CalculatePoint
+[DEBUG] A_: [1;
+ 2;
+ 1] @process | CalculatePoint
+[DEBUG] matSrc: [10;
+ 20;
+ 10] @convertToWorldCoordinate
+[DEBUG] R: [0;
+ 0;
+ 0] @convertToWorldCoordinate
+[DEBUG] t: [0;
+ -6.277438562204192e+66;
+ -6.277438562204192e+66] @convertToWorldCoordinate
+[DEBUG] R0: [1, 0, 0;
+ 0, 1, 0;
+ 0, 0, 1] @convertToWorldCoordinate
+[DEBUG] matDst(before, multi): [10;
+ 6.277438562204192e+66;
+ 6.277438562204192e+66] @convertToWorldCoordinate
+[DEBUG] matDst(after, multi): [10;
+ 6.277438562204192e+66;
+ 6.277438562204192e+66] @convertToWorldCoordinate
+[DEBUG] Aw: [10;
+ 6.277438562204192e+66;
+ 6.277438562204192e+66] @process | CalculatePoint
+[DEBUG] Bw: [10;
+ 6.277438562204192e+66;
+ 6.277438562204192e+66] @process | CalculatePoint
+[DEBUG] item: 6.2774385622041925E66 @process | CalculatePoint
+[DEBUG] pointDst: 0.5, 1.0 @process - CalculatePoint
+OpenCV(3.4.4) Error: Assertion failed (res != 0) in cv::Mat::elemSize, file C:\SOFT_File\opencv-3.4.4\modules\core\include\opencv2/core/mat.inl.hpp, line 943
+Exception in thread "main" CvException [org.opencv.core.CvException: cv::Exception: OpenCV(3.4.4) C:\SOFT_File\opencv-3.4.4\modules\core\include\opencv2/core/mat.inl.hpp:943: error: (-215:Assertion failed) res != 0 in function 'cv::Mat::elemSize'
+]
+	at org.opencv.imgproc.Imgproc.circle_3(Native Method)
+	at org.opencv.imgproc.Imgproc.circle(Imgproc.java:2030)
+	at com.github.smk7758.GetSubstituteFingerPoint.CalculatePoint.process(CalculatePoint.java:96)
+	at com.github.smk7758.GetSubstituteFingerPoint.Main.processer(Main.java:55)
+	at com.github.smk7758.GetSubstituteFingerPoint.Main.main(Main.java:21)
