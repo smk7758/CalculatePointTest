@@ -1,4 +1,4 @@
-package com.github.smk7758.GetSubstituteFingerPoint;
+package com.github.smk7758.CalculatePointTest;
 
 import java.nio.file.Path;
 import java.util.Map;

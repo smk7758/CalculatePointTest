@@ -1,4 +1,4 @@
-package com.github.smk7758.GetSubstituteFingerPoint;
+package com.github.smk7758.CalculatePointTest;
 
 import java.nio.file.Paths;
 
@@ -37,25 +37,24 @@ public class Main {
 
 		// Point fingerPoint = new Point(0, 0);
 
-		Mat vectorA_ = new Mat(3, 1, CvType.CV_64F);
+		Mat vectorA_ = new Mat(new Size(1, 3), CvType.CV_64FC1);
 		vectorA_.put(0, 0, new double[] { 0, 2, 1 });
+
+		Mat vectorB_ = new Mat(new Size(1, 3), CvType.CV_64FC1);
+		vectorB_.put(0, 0, new double[] { 0, 1, 1 });
 
 		Mat rotationMatrix = Mat.eye(new Size(3, 3), CvType.CV_64FC1);
 		rotationMatrix.put(1, 1, new double[] { -1 });
 
-		debugLog(rotationMatrix.dump(), LogLevel.DEBUG);
+		debugLog("R: " + rotationMatrix.dump(), LogLevel.DEBUG);
 
-		Mat translationVector = new Mat(new Size(3, 1), CvType.CV_64FC1);
-		{
-			translationVector.put(0, 0, new double[] { 0 });
-			translationVector.put(0, 1, new double[] { 10 });
-			translationVector.put(0, 2, new double[] { 1 });
-		}
-		debugLog(translationVector.dump(), LogLevel.DEBUG);
+		Mat translationVector = new Mat(new Size(1, 3), CvType.CV_64FC1);
+		translationVector.put(0, 0, new double[] { 0, 10, 1 });
+		debugLog("t: " + translationVector.dump(), LogLevel.DEBUG);
 
 		Mat outputMat = new Mat();
 
-		calculatePoint.process_(vectorA_, rotationMatrix, translationVector, outputMat);
+		calculatePoint.process_(vectorA_, vectorB_, rotationMatrix, translationVector, outputMat);
 	}
 
 }
