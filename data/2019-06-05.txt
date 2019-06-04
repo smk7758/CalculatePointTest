@@ -1,0 +1,40 @@
+CameraMatrix: [1, 0, 0;
+ 0, 1, 0;
+ 0, 0, 1]
+DisCoeff_: [0, 0, 0, 0, 0]
+[DEBUG] A_: [0;
+ 2;
+ 1]
+[DEBUG] B_: [0;
+ 1;
+ 1]
+[DEBUG] R: [1, 0, 0;
+ 0, -1, 0;
+ 0, 0, 1]
+[DEBUG] t: [0;
+ 10;
+ 1]
+[DEBUG] k_0:  -10.0, k_1: -2.0, k: 5.0 @process | CalculatePoint
+[INFO] A_: [0;
+ 2;
+ 1] @process | CalculatePoint
+[DEBUG] R_inv: [1, -0, -0;
+ -0, -1, -0;
+ -0, -0, 1] @convertToWorldCoordinate
+[INFO] Aw: [0;
+ 0;
+ 4] @process | CalculatePoint
+[DEBUG] vecrotNw_l: [0;
+ 5;
+ 0] @process | CalculatePoint
+[INFO] Bw: [0;
+ 5;
+ 4] @process | CalculatePoint
+[INFO] vectorB_project: [0;
+ 1] @process | CalculatePoint
+[INFO] vectorB_project_: [0;
+ 1;
+ 1] @process | CalculatePoint
+[INFO] differenceB: [0;
+ 0;
+ 0] @process | CalculatePoint

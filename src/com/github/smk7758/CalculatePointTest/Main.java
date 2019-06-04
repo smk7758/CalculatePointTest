@@ -40,8 +40,12 @@ public class Main {
 		Mat vectorA_ = new Mat(new Size(1, 3), CvType.CV_64FC1);
 		vectorA_.put(0, 0, new double[] { 0, 2, 1 });
 
+		debugLog("A_: " + vectorA_.dump(), LogLevel.DEBUG);
+
 		Mat vectorB_ = new Mat(new Size(1, 3), CvType.CV_64FC1);
 		vectorB_.put(0, 0, new double[] { 0, 1, 1 });
+
+		debugLog("B_: " + vectorB_.dump(), LogLevel.DEBUG);
 
 		Mat rotationMatrix = Mat.eye(new Size(3, 3), CvType.CV_64FC1);
 		rotationMatrix.put(1, 1, new double[] { -1 });

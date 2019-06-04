@@ -128,7 +128,6 @@ public class CalculatePoint {
 		// A = k * A'
 		Mat vectorA = vectorA_.mul(Mat.ones(vectorA_.size(), vectorA_.type()), k);
 
-		Main.debugLog("A:  " + vectorA.dump(), LogLevel.INFO, "process | CalculatePoint");
 		Main.debugLog("A_: " + vectorA_.dump(), LogLevel.INFO, "process | CalculatePoint");
 
 		Mat vectorAw = new Mat(3, 1, CvType.CV_64F);
