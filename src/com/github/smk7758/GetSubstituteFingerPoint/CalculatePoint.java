@@ -174,7 +174,6 @@ public class CalculatePoint {
 	 * Word座標への変換をする cf: matDst = R*matSrc + t
 	 */
 	public static void convertToWorldCoordinate(Mat matSrc, Mat rotationMatrix, Mat translationVector, Mat matDst) {
-		// Main.debugLog("matSrc: " + matSrc.dump(), LogLevel.DEBUG, "convertToWorldCoordinate");
 		// Main.debugLog("t: " + translationVector.t().dump(), LogLevel.DEBUG, "convertToWorldCoordinate");
 
 		Core.gemm(rotationMatrix, matSrc, 1, translationVector.t(), 1, matDst);
