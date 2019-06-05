@@ -9,9 +9,7 @@ import org.opencv.core.MatOfPoint2f;
 import org.opencv.core.MatOfPoint3f;
 import org.opencv.core.Point;
 import org.opencv.core.Point3;
-import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.imgproc.Imgproc;
 
 import com.github.smk7758.CalculatePointTest.Main.LogLevel;
 
@@ -34,7 +32,6 @@ public class CalculatePoint {
 	/**
 	 * 指先の点の空間座標を変換して、接地判定を行う。
 	 *
-	 * @param vectorA_ 指先の点(Z=f)
 	 */
 	public void process(Point fingerPoint, Mat rotationVector, Mat translationVector, Mat outputMat) {
 		Main.debugLog("Rv: " + rotationVector.dump(), LogLevel.DEBUG, "process | CalculatePoint");
@@ -43,71 +40,19 @@ public class CalculatePoint {
 		Calib3d.Rodrigues(rotationVector, rotationMatrix);
 		Main.debugLog("R: " + rotationMatrix.dump(), LogLevel.DEBUG, "process | CalculatePoint");
 
-		Mat translationVector_ = convertVerticalTranslationVectorHorizontal(translationVector);
+		//		process_(vectorA_, vectorB_, rotationMatrix, translationVectorVertical, objectLength, outputPoint);
 
-		// A_, 指先の点(Z=f)
-		Mat vectorA_ = new Mat(3, 1, CvType.CV_64F);
-		// vectorA_.put(0, 0, new double[] { focus, fingerPoint.y, fingerPoint.x }); //TODO
-
-		Main.debugLog("vectorA_: " + vectorA_.dump(), LogLevel.DEBUG, "process | CalculatePoint");
-
-		// create Nw
-		Mat vectorNw = new Mat(3, 1, CvType.CV_64F);
-		vectorNw.put(0, 0, new double[] { 0, 1, 0 });
-
-		// Nw → N
-		Mat vectorN = new Mat();
-		// CalculatePoint.convertToWorldCoordinate(vectorNw, rotationMatrix, translationVector_, vectorN);
-		// vectorN = normalizeVector(vectorN);
-		Main.debugLog("vectorN: " + vectorN.dump(), LogLevel.DEBUG, "process | CalculatePoint");
-
-		double k_0 = vectorN.dot(translationVector);
-		double k_1 = vectorN.dot(vectorA_);
-		double k = vectorN.dot(translationVector) / vectorN.dot(vectorA_);
-
-		Main.debugLog("k_0:  " + k_0 + ", k_1: " + k_1 + ", k: " + k, LogLevel.DEBUG, "process | CalculatePoint"); // TODO
-
-		// Mat vectorA = new Mat(3, 1, CvType.CV_64F);
-		Mat vectorA = vectorA_.mul(Mat.ones(vectorA_.size(), vectorA_.type()), k);
-
-		Main.debugLog("A_: " + vectorA_.dump(), LogLevel.DEBUG, "process | CalculatePoint");
-		Main.debugLog("A:  " + vectorA.dump(), LogLevel.DEBUG, "process | CalculatePoint");
-
-		Mat vectorAw = new Mat(3, 1, CvType.CV_64F);
-
-		// System.out.println(CvType.typeToString(rotationMatrix.type()));
-
-		CalculatePoint.unconvertToWorldCoordinate(vectorA, rotationVector, translationVector_, vectorAw);
-
-		Main.debugLog("Aw: " + vectorAw.dump(), LogLevel.DEBUG, "process | CalculatePoint"); // TODO
-
-		int l = 20;
-		Mat vectorBw = vectorAw.clone();
-		Main.debugLog("Bw: " + vectorBw.dump(), LogLevel.DEBUG, "process | CalculatePoint");
-		Main.debugLog("item: " + vectorBw.get(2, 0)[0], LogLevel.DEBUG, "process | CalculatePoint");
-
-		vectorBw.put(0, 2, vectorBw.get(2, 0)[0] + l);
-
-		Point3 pointA = new Point3(vectorA.get(0, 0)[0], vectorA.get(1, 0)[0], vectorA.get(2, 0)[0]);
-		MatOfPoint3f pointsSrc = new MatOfPoint3f(pointA);
-		MatOfPoint2f pointsDst = new MatOfPoint2f();
-		Calib3d.projectPoints(pointsSrc, rotationVector, translationVector,
-				cameraMatrix, distortionCoefficients, pointsDst);
-
-		Main.debugLog("pointDst: " + pointsDst.get(0, 0)[0] + ", " + pointsDst.get(0, 0)[1],
-				LogLevel.DEBUG, "process - CalculatePoint");
-
-		Imgproc.circle(outputMat, new Point(pointsDst.get(0, 0)), 10, new Scalar(255, 255, 255));
+//		Imgproc.circle(outputMat, new Point(pointsDstF.get(0, 0)), 10, new Scalar(255, 255, 255));
 		// System.out.println(pointsDst.dump()); // TODD
 	}
 
 	/**
-	 * 指先の点の空間座標を変換して、接地判定を行う。(test用)
+	 * 指先の点の空間座標を変換して、接地判定を行う。(数値計算向け)
 	 *
 	 * @param vectorA_ 指先の点 (Z=f)
 	 */
 	public void process_(Mat vectorA_, Mat vectorB_, Mat rotationMatrix, Mat translationVectorVertical,
-			Mat outputPoint) {
+			double objectLength, Mat outputPoint) {
 		// create Nw
 		Mat vectorNw = new Mat(3, 1, CvType.CV_64F);
 		vectorNw.put(0, 0, new double[] { 0, 1, 0 });
@@ -136,7 +81,7 @@ public class CalculatePoint {
 
 		Main.debugLog("Aw: " + vectorAw.dump(), LogLevel.INFO, "process | CalculatePoint"); // TODO
 
-		final int objectLength = 5; // TODO
+		//		final int objectLength = 5;
 		Mat vectorBw = new Mat();
 		Mat vectorNw_l = vectorNw.mul(Mat.ones(vectorNw.size(), vectorNw.type()), objectLength);
 		Core.add(vectorAw, vectorNw_l, vectorBw);
@@ -158,9 +103,6 @@ public class CalculatePoint {
 		Core.subtract(vectorB_project_, vectorB_, differenceB);
 
 		Main.debugLog("differenceB: " + differenceB.dump(), LogLevel.INFO, "process | CalculatePoint");
-
-		// Imgproc.circle(outputMat, new Point(pointsDst.get(0, 0)), 10, new Scalar(255, 255, 255));
-		// System.out.println(pointsDst.dump()); // TODD
 	}
 
 	/**

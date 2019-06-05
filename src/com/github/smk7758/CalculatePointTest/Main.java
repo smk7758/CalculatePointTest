@@ -10,6 +10,7 @@ import org.opencv.core.Size;
 public class Main {
 	private static final boolean DEBUG_MODE = true;
 	private final String camparaPathString = "S:\\FingerPencil\\CalclatePoint_Test_2019-05-18\\CameraCalibration_Test_2019-05-18.xml";
+	private static double objectLength = 5;
 
 	static {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
@@ -28,7 +29,8 @@ public class Main {
 	}
 
 	public static void debugLog(String message, LogLevel logLevel) {
-		if (DEBUG_MODE) System.out.println("[" + logLevel.toString() + "] " + message);
+		if (DEBUG_MODE)
+			System.out.println("[" + logLevel.toString() + "] " + message);
 	}
 
 	public void processer() {
@@ -58,7 +60,7 @@ public class Main {
 
 		Mat outputMat = new Mat();
 
-		calculatePoint.process_(vectorA_, vectorB_, rotationMatrix, translationVector, outputMat);
+		calculatePoint.process_(vectorA_, vectorB_, rotationMatrix, translationVector, objectLength, outputMat);
 	}
 
 }
